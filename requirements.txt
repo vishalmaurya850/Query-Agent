@@ -3,7 +3,7 @@ faiss-cpu
 pandas
 torch
 os
--q google.generativeai --upgrade
+google.generativeai --upgrade
 Flask
 pandas
 json
