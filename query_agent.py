@@ -36,17 +36,6 @@ class ConversationalAgent:
         )
         return response.result.strip()
 
-    def generate_response_with_citations(query, retrieved_segments):
-        retrieved_segments = self.query_index(query)
-        context = " ".join(retrieved_segments)
-        prompt = f"Context: {context}\n\nQuestion: {query}\nAnswer:",
-        response = palm.generate_text(
-            model="models/text-bison-001",
-            prompt=prompt,
-            max_output_tokens=150
-        ).result.strip()
-        citations = "\n".join([f"Citation: {segments}" for segments in retrieved_segments])
-
 agent = ConversationalAgent()
 
 def interact_with_user():
