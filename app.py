@@ -8,7 +8,7 @@ from sentence_transformers import SentenceTransformer
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
- model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer('all-MiniLM-L6-v2')
 index = faiss.read_index('sata/faiss_index.index')
 
 with open('sata/segments.json', 'r') as f:
