@@ -9,10 +9,10 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-model = SentenceTransformer('models/text-bison-001')
-index = faiss.read_index('data/faiss_index.index')
+model = SentenceTransformer('all-MiniLM-L6-v2')
+index = faiss.read_index('sata/faiss_index.index')
 
-with open('data/segments.json', 'r') as f:
+with open('sata/segments.json', 'r') as f:
     segments = json.load(f)
 
 class ConversationalAgent:
@@ -31,12 +31,11 @@ class ConversationalAgent:
         self.context.extend(retrieved_segments)
         context = ' '.join(self.context[-10:])  # Use last 10 segments for context
 
-        response = openai.Completion.create(
-            model="gpt-4",
-            prompt=f"Answer the following question based on the context provided:\n\nContext: {context}\n\nQuestion: {query}\n\nAnswer:",
-            max_tokens=200
-        )
-        return response.choices[0].text.strip()
+        response = palm.generate_text(
+        	model="models/text-bison-001",
+        	prompt=prompt,
+        	max_output_tokens=150
+    	).result.strip()
 
 agent = ConversationalAgent()
 
