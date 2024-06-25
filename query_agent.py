@@ -7,9 +7,9 @@ from sentence_transformers import SentenceTransformer
 
 
 model = SentenceTransformer('models/text-bison-001')
-index = faiss.read_index('data/faiss_index.index')
+index = faiss.read_index('sata/faiss_index.index')
 
-with open('data/segments.json', 'r') as f:
+with open('sata/segments.json', 'r') as f:
     segments = json.load(f)
 
 class ConversationalAgent:
