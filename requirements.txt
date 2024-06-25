@@ -1,7 +1,6 @@
-sentence-transformers
+sentence_transformers
 faiss-cpu
 pandas
 torch
 google.generativeai
 Flask
-pandas
