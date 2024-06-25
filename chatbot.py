@@ -39,7 +39,7 @@ class ConversationalAgent:
 
 agent = ConversationalAgent()
 
-app = Flask(Query_Agent)
+app = Flask(__name__)
 
 @app.route('/')
 def index():
@@ -51,5 +51,5 @@ def chat():
     response = agent.generate_response(user_query)
     return jsonify({'response': response})
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True)
