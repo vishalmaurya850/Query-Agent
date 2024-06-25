@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Natural Language Query Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chat-container">
+        <div id="chatbox" class="chatbox"></div>
+        <input id="userInput" type="text" placeholder="Type your message here..." autofocus>
+        <button id="sendButton">Send</button>
+    </div>
+
+    <script>
+        const userInput = document.getElementById('userInput');
+        const sendButton = document.getElementById('sendButton');
+        const chatbox = document.getElementById('chatbox');
+
+        function appendMessage(sender, text) {
+            const message = document.createElement('div');
+            message.classList.add('message', sender);
+            message.innerText = text;
+            chatbox.appendChild(message);
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+
+        sendButton.addEventListener('click', async () => {
+            const query = userInput.value;
+            if (!query) return;
+
+            appendMessage('user', query);
+            userInput.value = '';
+
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ query })
+            });
+            const data = await response.json();
+            appendMessage('agent', data.response);
+        });
+
+        userInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                sendButton.click();
+            }
+        });
+    </script>
+</body>
+</html>

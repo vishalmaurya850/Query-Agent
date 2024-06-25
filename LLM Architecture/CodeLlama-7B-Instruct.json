@@ -1,0 +1,59 @@
+{
+  "_descriptorVersion": "0.0.1",  
+  "datePublished": "2023-08-24T21:39:59",
+  "name": "CodeLlama 7B Instruct",
+  "description": "MetaAI has released Code Llama, a comprehensive family of large language models for code. These models are based on Llama 2 and exhibit state-of-the-art performance among openly available models. They offer advanced infilling capabilities, can accommodate large input contexts, and have the ability to follow instructions for programming tasks without prior training. There are various versions available to cater to a wide array of applications: foundation models (Code Llama), Python-specific models (Code Llama - Python), and models for following instructions (Code Llama - Instruct). These versions come with 7B, 13B, and 34B parameters respectively. All models are trained on 16k token sequences and show improvements even on inputs with up to 100k tokens. The 7B and 13B models of Code Llama and Code Llama - Instruct have the ability to infill based on surrounding content. In terms of performance, Code Llama has set new standards among open models on several code benchmarks, achieving scores of up to 53% on HumanEval and 55% on MBPP. Notably, the Python version of Code Llama 7B surpasses the performance of Llama 2 70B on HumanEval and MBPP. All of MetaAI's models outperform every other publicly available model on MultiPL-E. Code Llama has been released under a permissive license that enables both research and commercial use.",
+  "author": {
+    "name": "Meta AI",
+    "url": "https://ai.meta.com",
+    "blurb": "Pushing the boundaries of AI through research, infrastructure and product innovation."
+  },
+  "numParameters": "7B",
+  "resources": {
+    "canonicalUrl": "https://ai.meta.com/blog/code-llama-large-language-model-coding/",
+    "paperUrl": "https://ai.meta.com/research/publications/code-llama-open-foundation-models-for-code/",
+    "downloadUrl": "https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF"
+  },
+  "trainedFor": "chat",
+  "arch": "llama",
+  "files": {
+    "highlighted": {
+      "economical": {
+        "name": "codellama-7b-instruct.Q4_K_S.gguf"
+      },
+      "most_capable": {
+        "name": "codellama-7b-instruct.Q6_K.gguf"
+      }
+    },
+    "all": [
+      {
+        "name": "codellama-7b-instruct.Q4_K_S.gguf",
+        "url": "https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF/resolve/main/codellama-7b-instruct.Q4_K_S.gguf",
+        "sizeBytes": 3856831168,
+        "quantization": "Q4_K_S",
+        "format": "gguf",
+        "sha256checksum": "2e44d2b7ae28bbe3a2ed698e259cbd3a6bf7fe8f9d351e14b2be17fb690d7f95",
+        "publisher": {
+          "name": "TheBloke",
+          "socialUrl": "https://twitter.com/TheBlokeAI"
+        },
+        "respository": "TheBloke/CodeLlama-7B-Instruct-GGUF",
+        "repositoryUrl": "https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF"
+      },
+      {
+        "name": "codellama-7b-instruct.Q6_K.gguf",
+        "url": "https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF/resolve/main/codellama-7b-instruct.Q6_K.gguf",
+        "sizeBytes": 5529302208,
+        "quantization": "Q6_K",
+        "format": "gguf",
+        "sha256checksum": "2f516cd9c16181832ffceaf94b13e8600d88c9bc8d7f75717d25d8c9cf9aa973",
+        "publisher": {
+          "name": "TheBloke",
+          "socialUrl": "https://twitter.com/TheBlokeAI"
+        },
+        "respository": "TheBloke/CodeLlama-7B-Instruct-GGUF",
+        "repositoryUrl": "https://huggingface.co/TheBloke/CodeLlama-7B-Instruct-GGUF"
+      }
+    ]
+  }
+}
