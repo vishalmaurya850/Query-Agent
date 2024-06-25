@@ -2,7 +2,6 @@ sentence-transformers
 faiss-cpu
 pandas
 torch
-os
 google.generativeai
 Flask
 pandas
