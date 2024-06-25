@@ -4,6 +4,7 @@ import torch
 import pandas as pd
 from sentence_transformers import SentenceTransformer
 import faiss
+import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
