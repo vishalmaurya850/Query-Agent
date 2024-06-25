@@ -45,8 +45,7 @@ class ConversationalAgent:
             prompt=prompt,
             max_output_tokens=150
         ).result.strip()
-    retrieved_segments = self.query_index(query)
-    citations = "\n".join([f"Citation: {segments}" for segments in retrieved_segments])
+        citations = "\n".join([f"Citation: {segments}" for segments in retrieved_segments])
 
 agent = ConversationalAgent()
 
