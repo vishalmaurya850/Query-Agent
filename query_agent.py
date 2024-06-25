@@ -4,7 +4,8 @@ import json
 import faiss
 import torch
 from sentence_transformers import SentenceTransformer
-
+import warnings
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 model = SentenceTransformer('models/text-bison-001')
 index = faiss.read_index('sata/faiss_index.index')
