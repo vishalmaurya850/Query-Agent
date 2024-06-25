@@ -8,7 +8,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-lecture_notes = {" What is a Large Language Model (LLM)
+lecture_notes = """ What is a Large Language Model (LLM)
 Large Language Models (LLMs) represent a breakthrough in artificial intelligence, employing neural network techniques with extensive parameters for advanced language processing.
 
 This article explores the evolution, architecture, applications, and challenges of LLMs, focusing on their impact in the field of Natural Language Processing (NLP).
@@ -134,8 +134,7 @@ Open AI,ChatGPT,GPT-3,GooseAI,Claude,Cohere,GPT-4.
 LLMs work by training on diverse language data, learning patterns, and relationships, enabling them to understand and generate human-like text.
 
 5. What is an example of an LLM model?
-GPT-3 (Generative Pre-trained Transformer 3) is an example of a state-of-the-art large language model in AI."
-}
+GPT-3 (Generative Pre-trained Transformer 3) is an example of a state-of-the-art large language model in AI."""
 
 segments = lecture_notes.split('\n\n')
 model = SentenceTransformer('all-MiniLM-L6-v2')
