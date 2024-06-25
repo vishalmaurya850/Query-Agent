@@ -32,7 +32,7 @@ data = {"../LLM Architecture/CodeLlama-7B-Instruct.json",
         "../LLM Architecture/phi-2.json"
 }
 
-df = pd.DataFrame(sata)
+df = pd.DataFrame(data)
 
 df.to_json('sata/llm_architectures.json', orient='records')
 
