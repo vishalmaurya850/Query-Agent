@@ -39,7 +39,7 @@ class ConversationalAgent:
 
 agent = ConversationalAgent()
 
-app = Flask(_name_)
+app = Flask(Query_Agent)
 
 @app.route('/')
 def index():
