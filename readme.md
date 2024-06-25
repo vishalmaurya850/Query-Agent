@@ -11,7 +11,7 @@ This project implements a Natural Language Query Agent that answers questions ba
     git clone https://github.com/vishalmaurya850/Query-Agent.git
     ```
     ```
-    cd natural-language-query-agent
+    cd Query-Agent
     ```
 2. Install the required packages:
     ```
