@@ -23,7 +23,7 @@ This project implements a Natural Language Query Agent that answers questions ba
     ```
 4. Run the query and generate response:
     ```
-    python query-agent.py
+    python query_agent.py
     ```
 5. Run the Chatbot:
     ```
