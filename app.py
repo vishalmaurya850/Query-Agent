@@ -35,9 +35,9 @@ class ConversationalAgent:
     	).result.strip()
 def initialize_agent():
     model = SentenceTransformer('all-MiniLM-L6-v2')
-    index = faiss.read_index('data/faiss_index.index')
+    index = faiss.read_index('sata/faiss_index.index')
 
-    with open('data/segments.json', 'r') as f:
+    with open('sata/segments.json', 'r') as f:
         segments = json.load(f)
 
     return ConversationalAgent(model, index, segments)
