@@ -8,7 +8,7 @@ import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
 
-lecture_notes = "../Data/lecture notes.txt"
+lecture_notes = "../Data/lecture-notes.txt"
 
 segments = lecture_notes.split('\n\n')
 model = SentenceTransformer('all-MiniLM-L6-v2')
