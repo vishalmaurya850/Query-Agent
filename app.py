@@ -8,22 +8,19 @@ from sentence_transformers import SentenceTransformer
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-
-model = SentenceTransformer('all-MiniLM-L6-v2')
-index = faiss.read_index('sata/faiss_index.index')
-
-with open('sata/segments.json', 'r') as f:
-    segments = json.load(f)
-
+    
 class ConversationalAgent:
-    def _init_(self):
+    def _init_(self,model,index,segments):
         self.context = []
+        self.model=model
+        self.index=index
+        self.segments=segments
 
     def query_index(self, query):
-        query_embedding = model.encode([query], convert_to_tensor=True).numpy()
-        _, indices = index.search(query_embedding, k=5)
+        query_embedding = self.model.encode([query], convert_to_tensor=True).cpu().numpy()
+        distances, indices = self.index.search(query_embedding, k=5)
         
-        retrieved_segments = [segments[i] for i in indices[0]]
+        retrieved_segments = [self.segments[i] for i in indices[0]]
         return retrieved_segments
 
     def generate_response(self, query):
@@ -33,14 +30,20 @@ class ConversationalAgent:
 
         response = palm.generate_text(
         	model="models/text-bison-001",
-        	prompt=prompt,
-        	max_output_tokens=150
+        	prompt=f"Answer the following question based on the context provided:\n\nContext: {context}\n\nQuestion: {query}\n\nAnswer:",
+        	max_output_tokens=200
     	).result.strip()
+def initialize_agent():
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    index = faiss.read_index('data/faiss_index.index')
 
-agent = ConversationalAgent()
+    with open('data/segments.json', 'r') as f:
+        segments = json.load(f)
+
+    return ConversationalAgent(model, index, segments)
 
 app = Flask(__name__)
-
+agent = initialize_agent()
 @app.route('/')
 def index():
     return render_template('index.html')
