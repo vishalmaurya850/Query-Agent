@@ -8,42 +8,46 @@ from sentence_transformers import SentenceTransformer
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
 
-    
+ model = SentenceTransformer('all-MiniLM-L6-v2')
+index = faiss.read_index('sata/faiss_index.index')
+
+with open('sata/segments.json', 'r') as f:
+    segments = json.load(f)
+
 class ConversationalAgent:
-    def _init_(self,model,index,segments):
+    def __init__(self):
         self.context = []
-        self.model=model
-        self.index=index
-        self.segments=segments
 
     def query_index(self, query):
-        query_embedding = self.model.encode([query], convert_to_tensor=True).cpu().numpy()
-        distances, indices = self.index.search(query_embedding, k=5)
+        query_embedding = model.encode([query], convert_to_tensor=True).cpu().numpy()
+
+        distances, indices = index.search(query_embedding, k=5)
         
-        retrieved_segments = [self.segments[i] for i in indices[0]]
+        retrieved_segments = [segments[i] for i in indices[0]]
         return retrieved_segments
 
     def generate_response(self, query):
         retrieved_segments = self.query_index(query)
+        print("Retrieved Segments:", retrieved_segments)  
         self.context.extend(retrieved_segments)
-        context = ' '.join(self.context[-10:])  # Use last 10 segments for context
+        context = ' '.join(self.context[-10:])
+
+        prompt = (f"Answer the following question based on the context provided:\n\n"
+                  f"Context: {context}\n\nQuestion: {query}\n\nAnswer:")
+
+        print("Prompt for Gemini API:", prompt) 
 
         response = palm.generate_text(
-        	model="models/text-bison-001",
-        	prompt=f"Answer the following question based on the context provided:\n\nContext: {context}\n\nQuestion: {query}\n\nAnswer:",
-        	max_output_tokens=200
-    	).result.strip()
-def initialize_agent():
-    model = SentenceTransformer('all-MiniLM-L6-v2')
-    index = faiss.read_index('sata/faiss_index.index')
+            model="models/text-bison-001",
+            prompt=prompt,
+            max_output_tokens=200
+        )
+        return response.result.strip()
 
-    with open('sata/segments.json', 'r') as f:
-        segments = json.load(f)
+agent = ConversationalAgent()
 
-    return ConversationalAgent(model, index, segments)
+app = Flask(__name__)   
 
-app = Flask(__name__)
-agent = initialize_agent()
 @app.route('/')
 def index():
     return render_template('index.html')
