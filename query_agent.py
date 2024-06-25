@@ -45,7 +45,6 @@ class ConversationalAgent:
             max_output_tokens=150
         ).result.strip()
     citations = "\n".join([f"Citation: {segments}" for segments in retrieved_segments])
-    return f"{response}\n\n{citations}"
 
 agent = ConversationalAgent()
 
