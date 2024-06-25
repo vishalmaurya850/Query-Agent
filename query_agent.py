@@ -12,7 +12,7 @@ index = faiss.read_index('sata/faiss_index.index')
 
 with open('sata/segments.json', 'r') as f:
     segments = json.load(f)
-
+retrieved_segments = self.query_index(query)
 class ConversationalAgent:
     def __init__(self):
         self.context = []
@@ -25,7 +25,6 @@ class ConversationalAgent:
         return retrieved_segments
 
     def generate_response(self, query):
-        retrieved_segments = self.query_index(query)
         self.context.extend(retrieved_segments)
         context = ' '.join(self.context[-10:])  # Use last 10 segments for context
 
