@@ -30,9 +30,9 @@ class ConversationalAgent:
         context = ' '.join(self.context[-10:])  # Use last 10 segments for context
 
         response = palm.generate_text(
-        	model="models/text-bison-001",
-        	prompt=f"Answer the following question based on the context provided:\n\nContext: {context}\n\nQuestion: {query}\n\nAnswer:",
-        	max_output_tokens=200
+            model="models/text-bison-001",
+            prompt=f"Answer the following question based on the context provided:\n\nContext: {context}\n\nQuestion: {query}\n\nAnswer:",
+            max_output_tokens=200
         )
         return response.result.strip()
 
