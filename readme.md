@@ -19,11 +19,11 @@ This project implements a Natural Language Query Agent that answers questions ba
     ```
 3. Prepare the data and create embeddings:
     ```
-    python prepare_data.py
+    python prepare-data.py
     ```
 4. Run the query and generate response:
     ```
-    python query_agent.py
+    python query-agent.py
     ```
 5. Run the Chatbot:
     ```
