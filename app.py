@@ -21,7 +21,7 @@ class ConversationalAgent:
     def query_index(self, query):
         query_embedding = model.encode([query], convert_to_tensor=True).cpu().numpy()
 
-        _, indices = index.search(query_embedding, k=5)
+        _, indices = self.query_index.search(query_embedding, k=5)
         
         retrieved_segments = [segments[i] for i in indices[0]]
         return retrieved_segments
