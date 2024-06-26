@@ -35,13 +35,13 @@ class ConversationalAgent:
             max_output_tokens=200
         )
         return response.result.strip()
-    
-    def generate_response(self, user_query):
-    response = self.some_method_to_get_response(user_query)  # Replace with the actual method
-    if response.result is not None:
-        return response.result.strip()
-    else:
-        return "Sorry! I didn't Understand. I will make it correct."  # Handle the None case appropriately
+         
+        if response.result is not None:
+            return response.result.strip()
+        else:
+            return "Sorry! I didn't Understand. I will make it correct."  # Handle the None case appropriately
+        
+   
 
 
 agent = ConversationalAgent()
