@@ -17,12 +17,10 @@ with open('sata/segments.json', 'r') as f:
 class ConversationalAgent:
     def __init__(self):
         self.context = []
-
     def query_index(self, query):
-        query_embedding = model.encode([query], convert_to_tensor=True).cpu().numpy()
-
+        query_embedding = model.encode([query], convert_to_tensor=True).numpy()
         _, indices = self.query_index.search(query_embedding, k=5)
-        
+        print(type(self.query_index))
         retrieved_segments = [segments[i] for i in indices[0]]
         return retrieved_segments
 
@@ -59,7 +57,7 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_query = request.json['query_index']
+    user_query = request.json['query']
     response = agent.generate_response(user_query)
     return jsonify({'response': response})
 
