@@ -43,6 +43,11 @@ class ConversationalAgent:
             max_output_tokens=200
         )
         return response.result.strip()
+        
+        if response.result is not None:
+            return response.result.strip()
+        else:
+            return "Sorry! I didn't Understand. I will make it correct."
 
 agent = ConversationalAgent()
 
