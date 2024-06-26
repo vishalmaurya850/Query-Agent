@@ -59,7 +59,7 @@ def index():
 
 @app.route('/chat', methods=['POST'])
 def chat():
-    user_query = request.json['query']
+    user_query = request.json['query_index']
     response = agent.generate_response(user_query)
     return jsonify({'response': response})
 
