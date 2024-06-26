@@ -27,7 +27,7 @@ This project implements a Natural Language Query Agent that answers questions ba
     ```
 5. Run the Chatbot:
     ```
-    python chatbot.py
+    python app.py
     ```
 5. Paste the URL in your Browser:
     ```
