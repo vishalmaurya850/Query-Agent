@@ -1,37 +1,54 @@
-from flask import Flask, request, render_template, jsonify
 import google.generativeai as palm
 palm.configure(api_key='AIzaSyD8C0qP40JCjPLdz0VM8Wk4Yy5AJ9rWPIM')
 import json
-import faiss
-import torch
-from sentence_transformers import SentenceTransformer
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
+import faiss
+import torch
+import numpy as np
+from flask import Flask, request, render_template, jsonify
+from sentence_transformers import SentenceTransformer
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
-index = faiss.read_index('sata/faiss_index.index')
-
+app = Flask(__name__)
 with open('sata/segments.json', 'r') as f:
     segments = json.load(f)
-
-class ConversationalAgent:
+class QueryAgent:
     def __init__(self):
-        self.context = []
+        self.index = None
+        self.data_segments = []
+        self.load_index()
+        self.load_model()
+        self.context = []  # Initialize context as an empty list
+
+    def load_index(self):
+        # Load the index using faiss.read_index
+        self.index = faiss.read_index('sata/faiss_index.index')
+
+    def load_model(self):
+        # Load the sentence transformer model
+        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+
+    def embed_query(self, query):
+        # Generate embeddings using the sentence transformer model
+        query_embedding = self.model.encode(query)
+        return query_embedding
+
     def query_index(self, query):
-        query_embedding = model.encode([query], convert_to_tensor=True).numpy()
-        _, indices = self.query_index.search(query_embedding, k=5)
-        print(type(self.query_index))
+        # Ensure query_embedding is in the correct shape
+        query_embedding = self.model.encode([query], convert_to_tensor=True).numpy()
+        _, indices = self.index.search(query_embedding, k=5)
         retrieved_segments = [segments[i] for i in indices[0]]
         return retrieved_segments
 
     def generate_response(self, query):
+        # Retrieve the actual data segments using the indices
         retrieved_segments = self.query_index(query)
-        print("Retrieved Segments:", retrieved_segments)  
         self.context.extend(retrieved_segments)
-        context = ' '.join(self.context[-10:])
-
+        # Join the last 10 entries in the context into a single string
+        context= ' '.join(map(str, self.context[-10:]))
+        # Process retrieved_segments to generate a response
         prompt = (f"Answer the following question based on the context provided:\n\n"
-                  f"Context: {context}\n\nQuestion: {query}\n\nAnswer:")
+                  f"Context:{context}\n\nQuestion: {query}\n\nAnswer:")
 
         print("Prompt for Gemini API:", prompt) 
 
@@ -41,15 +58,10 @@ class ConversationalAgent:
             max_output_tokens=200
         )
         return response.result.strip()
-        
-        if response.result is not None:
-            return response.result.strip()
-        else:
-            return "Sorry! I didn't Understand. I will make it correct."
+    
 
-agent = ConversationalAgent()
-
-app = Flask(__name__)   
+# Initialize the QueryAgent
+agent = QueryAgent()
 
 @app.route('/')
 def index():
