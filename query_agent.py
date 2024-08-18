@@ -1,5 +1,5 @@
 import google.generativeai as palm
-palm.configure(api_key='AIzaSyD8C0qP40JCjPLdz0VM8Wk4Yy5AJ9rWPIM')
+palm.configure(api_key=APIKEY)
 import json
 import faiss
 import torch
